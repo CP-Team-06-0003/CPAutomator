@@ -10,6 +10,6 @@ namespace CPAutomatorInterface
     public interface CPUniversalInterface
     {
         Assembly getPluginByName(string name);
-        void Log(string name, string text);
+        void Log(string text);
     }
 }

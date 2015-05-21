@@ -6,15 +6,19 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CPAutomatorInterface;
 using CPPlugin;
 
 namespace CPAutomator_Windows
 {
     public partial class MainWindow : MetroFramework.Forms.MetroForm
     {
-        ICollection<Assembly> assemblies = new List<Assembly>();
+        private ICollection<Assembly> assemblies = new List<Assembly>();
+        private LogWindow logWindow = new LogWindow();
+        private cpPlugins plug_struct;
 
         /// <summary>
         /// Holds a collection of plugins and revertable plugins
@@ -39,7 +43,8 @@ namespace CPAutomator_Windows
         /// <param name="plugins"></param>
         public MainWindow(string[] plugins)
         {
-            cpPlugins plug_struct = new cpPlugins();
+            Log("Loading CPAutomator...");
+            this.plug_struct = new cpPlugins();
             plug_struct.plugins = new List<CPPluginInterface>();
             plug_struct.rev_plugins = new List<CPRevertablePluginInterface>();
             foreach (string plugin in plugins)
@@ -51,9 +56,68 @@ namespace CPAutomator_Windows
             InitializeComponent();
             enumeratePlugins(plug_struct);
             foreach (var item in plug_struct.plugins)
-                this.pluginGridView.Rows.Add(item.PrettyName);
+            {
+                CPWindowsAPI api = new CPWindowsAPI(this, item.Name);
+                CPAPI.setAPI(api);
+                this.pluginGridView.Rows.Add(item.PrettyName,
+                    "Run", "Settings", "Unload", "0", item.Name);
+                item.onPluginLoad();
+            }
             foreach (var item in plug_struct.rev_plugins)
+            {
+                CPWindowsAPI api = new CPWindowsAPI(this, item.Name);
+                CPAPI.setAPI(api);
                 this.pluginGridView.Rows.Add(item.PrettyName + " (Rev)");
+                item.onPluginLoad();
+            }
+        }
+
+        /// <summary>
+        /// Run a list of plugins with the plugin runner
+        /// </summary>
+        /// <param name="p"></param>
+        private void RunPlugins(ICollection<CPPluginInterface> p)
+        {
+            Log("Running plugins...");
+            PluginRunner runner = new PluginRunner(this, p);
+            Thread thread = new Thread(new ThreadStart(runner.RunPlugins));
+            thread.Start();
+            while (!thread.IsAlive) ;
+        }
+
+        /// <summary>
+        /// Gets a plugin instance by name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public CPPluginInterface getPluginInstanceByName(string name)
+        {
+            foreach (var plgn in plug_struct.plugins)
+                if (plgn.Name == name)
+                    return plgn;
+            foreach (var plgn in plug_struct.rev_plugins)
+                if (plgn.Name == name)
+                    return plgn;
+            return null;
+        }
+
+        /// <summary>
+        /// Logs text to the log window
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="text"></param>
+        public void Log(string name, string text)
+        {
+            logWindow.addLine("[" + name + "] " + text);
+        }
+
+        /// <summary>
+        /// Internal system application log function
+        /// </summary>
+        /// <param name="text"></param>
+        protected void Log(string text)
+        {
+            this.Log("System", text);
         }
 
         /// <summary>
@@ -84,6 +148,24 @@ namespace CPAutomator_Windows
                         }
                     }
                 }
+            }
+        }
+
+        //////// FORM HANDLERS ////////
+
+        private void btnLog_Click(object sender, EventArgs e)
+        {
+            logWindow.Show();
+        }
+
+        private void pluginGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == pluginGridView.Columns["RunPlugin"].Index && e.RowIndex >= 0)
+            {
+                Log("Run button clicked on " + e.RowIndex);
+                ICollection<CPPluginInterface> x = new List<CPPluginInterface>();
+                x.Add(getPluginInstanceByName("testplugin"));
+                RunPlugins(x);
             }
         }
     }

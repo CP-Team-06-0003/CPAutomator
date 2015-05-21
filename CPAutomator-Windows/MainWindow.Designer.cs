@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            CheckForIllegalCrossThreadCalls = false; // No worries ;)
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -36,6 +37,11 @@
             this.pluginProgress = new MetroFramework.Controls.MetroProgressBar();
             this.btnLog = new MetroFramework.Controls.MetroButton();
             this.pluginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RunPlugin = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.PluginProperties = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.UnloadPlugin = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.PluginRuns = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pluginGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,9 +61,13 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.pluginGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.pluginGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.pluginGridView.ColumnHeadersVisible = false;
             this.pluginGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.pluginName});
+            this.pluginName,
+            this.RunPlugin,
+            this.PluginProperties,
+            this.UnloadPlugin,
+            this.PluginRuns,
+            this.ID});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
@@ -71,6 +81,7 @@
             this.pluginGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pluginGridView.Location = new System.Drawing.Point(23, 63);
             this.pluginGridView.Name = "pluginGridView";
+            this.pluginGridView.ReadOnly = true;
             this.pluginGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
@@ -85,6 +96,7 @@
             this.pluginGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.pluginGridView.Size = new System.Drawing.Size(436, 302);
             this.pluginGridView.TabIndex = 0;
+            this.pluginGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pluginGridView_CellContentClick);
             // 
             // btnRunAll
             // 
@@ -110,13 +122,56 @@
             this.btnLog.TabIndex = 3;
             this.btnLog.Text = "Log";
             this.btnLog.UseSelectable = true;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
             // 
             // pluginName
             // 
             this.pluginName.HeaderText = "Plugin Name";
-            this.pluginName.MinimumWidth = 100;
+            this.pluginName.MinimumWidth = 175;
             this.pluginName.Name = "pluginName";
             this.pluginName.ReadOnly = true;
+            this.pluginName.Width = 175;
+            // 
+            // RunPlugin
+            // 
+            this.RunPlugin.HeaderText = "";
+            this.RunPlugin.MinimumWidth = 50;
+            this.RunPlugin.Name = "RunPlugin";
+            this.RunPlugin.ReadOnly = true;
+            this.RunPlugin.Width = 50;
+            // 
+            // PluginProperties
+            // 
+            this.PluginProperties.HeaderText = "";
+            this.PluginProperties.MinimumWidth = 65;
+            this.PluginProperties.Name = "PluginProperties";
+            this.PluginProperties.ReadOnly = true;
+            this.PluginProperties.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.PluginProperties.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.PluginProperties.Width = 65;
+            // 
+            // UnloadPlugin
+            // 
+            this.UnloadPlugin.HeaderText = "";
+            this.UnloadPlugin.MinimumWidth = 50;
+            this.UnloadPlugin.Name = "UnloadPlugin";
+            this.UnloadPlugin.ReadOnly = true;
+            this.UnloadPlugin.Width = 50;
+            // 
+            // PluginRuns
+            // 
+            this.PluginRuns.HeaderText = "Runs";
+            this.PluginRuns.MinimumWidth = 40;
+            this.PluginRuns.Name = "PluginRuns";
+            this.PluginRuns.ReadOnly = true;
+            this.PluginRuns.Width = 40;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
             // 
             // MainWindow
             // 
@@ -127,8 +182,10 @@
             this.Controls.Add(this.pluginProgress);
             this.Controls.Add(this.btnRunAll);
             this.Controls.Add(this.pluginGridView);
+            this.MaximumSize = new System.Drawing.Size(482, 453);
+            this.MinimumSize = new System.Drawing.Size(482, 453);
             this.Name = "MainWindow";
-            this.Text = "CP Troubleshooter";
+            this.Text = "CP Automator";
             ((System.ComponentModel.ISupportInitialize)(this.pluginGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -136,11 +193,16 @@
 
         #endregion
 
-        private MetroFramework.Controls.MetroGrid pluginGridView;
-        private MetroFramework.Controls.MetroButton btnRunAll;
+        public MetroFramework.Controls.MetroGrid pluginGridView;
+        public MetroFramework.Controls.MetroButton btnRunAll;
         private MetroFramework.Controls.MetroProgressBar pluginProgress;
         private MetroFramework.Controls.MetroButton btnLog;
         private System.Windows.Forms.DataGridViewTextBoxColumn pluginName;
+        private System.Windows.Forms.DataGridViewButtonColumn RunPlugin;
+        private System.Windows.Forms.DataGridViewButtonColumn PluginProperties;
+        private System.Windows.Forms.DataGridViewButtonColumn UnloadPlugin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PluginRuns;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
     }
 }
 

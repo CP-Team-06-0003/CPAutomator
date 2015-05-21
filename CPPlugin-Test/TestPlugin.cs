@@ -35,17 +35,19 @@ namespace CPPlugin_Test
 
         public void Run()
         {
-
+            CPAPI.getAPI().Log("Running script! Sleeping for 1S...");
+            System.Threading.Thread.Sleep(1000);
+            CPAPI.getAPI().Log("DONE!");
         }
 
         public void onPluginLoad()
         {
-
+            CPAPI.getAPI().Log("onPluginLoad called!");
         }
 
         public void onPluginUnload()
         {
-
+            CPAPI.getAPI().Log("onPluginUnload called!");
         }
 
         public void openProperties()
