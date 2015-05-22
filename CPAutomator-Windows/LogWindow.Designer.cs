@@ -41,6 +41,7 @@
             this.logTextBox.Multiline = true;
             this.logTextBox.Name = "logTextBox";
             this.logTextBox.ReadOnly = true;
+            this.logTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.logTextBox.Size = new System.Drawing.Size(356, 342);
             this.logTextBox.TabIndex = 0;
             this.logTextBox.TextChanged += new System.EventHandler(this.logTextBox_TextChanged);
