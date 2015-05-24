@@ -32,20 +32,21 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pluginGridView = new MetroFramework.Controls.MetroGrid();
-            this.btnRunAll = new MetroFramework.Controls.MetroButton();
-            this.pluginProgress = new MetroFramework.Controls.MetroProgressBar();
-            this.btnLog = new MetroFramework.Controls.MetroButton();
             this.pluginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RunPlugin = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PluginProperties = new System.Windows.Forms.DataGridViewButtonColumn();
             this.UnloadPlugin = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PluginRuns = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRunAll = new MetroFramework.Controls.MetroButton();
+            this.pluginProgress = new MetroFramework.Controls.MetroProgressBar();
+            this.btnLog = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.pluginGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // pluginGridView
             // 
+            this.pluginGridView.AllowUserToAddRows = false;
             this.pluginGridView.AllowUserToResizeRows = false;
             this.pluginGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pluginGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -97,32 +98,6 @@
             this.pluginGridView.TabIndex = 0;
             this.pluginGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pluginGridView_CellContentClick);
             // 
-            // btnRunAll
-            // 
-            this.btnRunAll.Location = new System.Drawing.Point(23, 371);
-            this.btnRunAll.Name = "btnRunAll";
-            this.btnRunAll.Size = new System.Drawing.Size(350, 30);
-            this.btnRunAll.TabIndex = 1;
-            this.btnRunAll.Text = "Run All Plugins";
-            this.btnRunAll.UseSelectable = true;
-            // 
-            // pluginProgress
-            // 
-            this.pluginProgress.Location = new System.Drawing.Point(23, 407);
-            this.pluginProgress.Name = "pluginProgress";
-            this.pluginProgress.Size = new System.Drawing.Size(436, 23);
-            this.pluginProgress.TabIndex = 2;
-            // 
-            // btnLog
-            // 
-            this.btnLog.Location = new System.Drawing.Point(379, 371);
-            this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(80, 30);
-            this.btnLog.TabIndex = 3;
-            this.btnLog.Text = "Log";
-            this.btnLog.UseSelectable = true;
-            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
-            // 
             // pluginName
             // 
             this.pluginName.HeaderText = "Plugin Name";
@@ -171,6 +146,32 @@
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
+            // 
+            // btnRunAll
+            // 
+            this.btnRunAll.Location = new System.Drawing.Point(23, 371);
+            this.btnRunAll.Name = "btnRunAll";
+            this.btnRunAll.Size = new System.Drawing.Size(350, 30);
+            this.btnRunAll.TabIndex = 1;
+            this.btnRunAll.Text = "Run All Plugins";
+            this.btnRunAll.UseSelectable = true;
+            // 
+            // pluginProgress
+            // 
+            this.pluginProgress.Location = new System.Drawing.Point(23, 407);
+            this.pluginProgress.Name = "pluginProgress";
+            this.pluginProgress.Size = new System.Drawing.Size(436, 23);
+            this.pluginProgress.TabIndex = 2;
+            // 
+            // btnLog
+            // 
+            this.btnLog.Location = new System.Drawing.Point(379, 371);
+            this.btnLog.Name = "btnLog";
+            this.btnLog.Size = new System.Drawing.Size(80, 30);
+            this.btnLog.TabIndex = 3;
+            this.btnLog.Text = "Log";
+            this.btnLog.UseSelectable = true;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
             // 
             // MainWindow
             // 
