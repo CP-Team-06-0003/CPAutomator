@@ -14,7 +14,7 @@ using CPPlugin;
 
 namespace CPAutomator_Windows
 {
-    public partial class MainWindow : MetroFramework.Forms.MetroForm
+    public partial class MainWindow : CPUniversalForm
     {
         private ICollection<Assembly> assemblies = new List<Assembly>();
         private LogWindow logWindow = new LogWindow();

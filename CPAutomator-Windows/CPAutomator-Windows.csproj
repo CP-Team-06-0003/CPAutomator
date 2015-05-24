@@ -73,6 +73,9 @@
   <ItemGroup>
     <Compile Include="CPAPI.cs" />
     <Compile Include="CPPluginInterface.cs" />
+    <Compile Include="CPUniversalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="CPUniversalInterface.cs" />
     <Compile Include="CPWindowsAPI.cs" />
     <Compile Include="LogWindow.cs">

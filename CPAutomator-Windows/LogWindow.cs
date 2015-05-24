@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CPAutomator_Windows
 {
-    public partial class LogWindow : MetroFramework.Forms.MetroForm
+    public partial class LogWindow : CPUniversalForm
     {
         public LogWindow()
         {
