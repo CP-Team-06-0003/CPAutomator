@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CheckForIllegalCrossThreadCalls = false; // No worries ;)
             this.logTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 

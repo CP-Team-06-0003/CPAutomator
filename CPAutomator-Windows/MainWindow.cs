@@ -43,6 +43,7 @@ namespace CPAutomator_Windows
         /// <param name="plugins"></param>
         public MainWindow(string[] plugins)
         {
+            CheckForIllegalCrossThreadCalls = false; // No worries ;)
             Log("Loading CPAutomator...");
             this.plug_struct = new cpPlugins();
             plug_struct.plugins = new List<CPPluginInterface>();

@@ -14,6 +14,7 @@ namespace CPAutomator_Windows
     {
         public LogWindow()
         {
+            CheckForIllegalCrossThreadCalls = false; // No worries ;)
             InitializeComponent();
         }
 
