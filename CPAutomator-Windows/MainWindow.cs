@@ -131,7 +131,16 @@ namespace CPAutomator_Windows
             {
                 if (assembly != null)
                 {
-                    Type[] types = assembly.GetTypes();
+                    Type[] types;
+                    try
+                    {
+                        types = assembly.GetTypes();
+                    }
+                    catch (Exception)
+                    {
+                        Log("Unable to load assembly -- Skipping...");
+                        continue;
+                    }
                     foreach (Type type in types)
                     {
                         if (type.IsInterface || type.IsAbstract)

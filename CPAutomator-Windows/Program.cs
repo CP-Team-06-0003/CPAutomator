@@ -20,7 +20,7 @@ namespace CPAutomator_Windows
                 {
                     Directory.CreateDirectory(path);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     MessageBox.Show("Error, could not create " + path +
                         "! Please create the directory yourself!");

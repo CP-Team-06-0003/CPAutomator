@@ -33,6 +33,14 @@ namespace CPPlugin_Test
             }
         }
 
+        public OS_TYPE SupportedOS
+        {
+            get
+            {
+                return OS_TYPE.OS_WINDOWS;
+            }
+        }
+
         public void Run()
         {
             CPAPI.getAPI().Log("Running script! Sleeping for 1S...");
@@ -79,6 +87,14 @@ namespace CPPlugin_Test
             get
             {
                 return "1.0.0";
+            }
+        }
+
+        public OS_TYPE SupportedOS
+        {
+            get
+            {
+                return OS_TYPE.OS_WINDOWS;
             }
         }
 
