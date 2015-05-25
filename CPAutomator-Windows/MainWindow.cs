@@ -169,5 +169,15 @@ namespace CPAutomator_Windows
                 RunPlugins(x);
             }
         }
+
+        private void btnRunAll_Click(object sender, EventArgs e)
+        {
+            if ((plug_struct.plugins.Count | plug_struct.rev_plugins.Count) == 0)
+            {
+                // No plugins :C
+                MessageBox.Show("No plugins found, please add some and then try again.");
+                return;
+            }
+        }
     }
 }

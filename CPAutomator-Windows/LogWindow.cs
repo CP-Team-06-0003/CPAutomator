@@ -47,5 +47,21 @@ namespace CPAutomator_Windows
             this.Hide();
             e.Cancel = true;
         }
+
+        private void exportLogButton_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveLog = new SaveFileDialog();
+            saveLog.Filter = "Log Data|*.log|Text File|*.txt";
+            saveLog.Title = "Save CPAutomator Log Data";
+            saveLog.ShowDialog();
+            if (saveLog.FileName != "")
+                System.IO.File.WriteAllText(@saveLog.FileName,
+                    this.logTextBox.Text);
+        }
+
+        private void clearLogButton_Click(object sender, EventArgs e)
+        {
+            this.logTextBox.Text = "";
+        }
     }
 }

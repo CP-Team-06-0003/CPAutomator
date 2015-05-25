@@ -32,15 +32,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pluginGridView = new MetroFramework.Controls.MetroGrid();
-            this.btnRunAll = new MetroFramework.Controls.MetroButton();
-            this.pluginProgress = new MetroFramework.Controls.MetroProgressBar();
-            this.btnLog = new MetroFramework.Controls.MetroButton();
             this.pluginName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RunPlugin = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PluginProperties = new System.Windows.Forms.DataGridViewButtonColumn();
             this.UnloadPlugin = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PluginRuns = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnRunAll = new MetroFramework.Controls.MetroButton();
+            this.pluginProgress = new MetroFramework.Controls.MetroProgressBar();
+            this.btnLog = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.pluginGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,37 +101,6 @@
             this.pluginGridView.TabIndex = 0;
             this.pluginGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pluginGridView_CellContentClick);
             // 
-            // btnRunAll
-            // 
-            this.btnRunAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRunAll.Location = new System.Drawing.Point(23, 371);
-            this.btnRunAll.Name = "btnRunAll";
-            this.btnRunAll.Size = new System.Drawing.Size(350, 30);
-            this.btnRunAll.TabIndex = 1;
-            this.btnRunAll.Text = "Run All Plugins";
-            this.btnRunAll.UseSelectable = true;
-            // 
-            // pluginProgress
-            // 
-            this.pluginProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pluginProgress.Location = new System.Drawing.Point(23, 407);
-            this.pluginProgress.Name = "pluginProgress";
-            this.pluginProgress.Size = new System.Drawing.Size(436, 23);
-            this.pluginProgress.TabIndex = 2;
-            // 
-            // btnLog
-            // 
-            this.btnLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLog.Location = new System.Drawing.Point(379, 371);
-            this.btnLog.Name = "btnLog";
-            this.btnLog.Size = new System.Drawing.Size(80, 30);
-            this.btnLog.TabIndex = 3;
-            this.btnLog.Text = "Log";
-            this.btnLog.UseSelectable = true;
-            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
-            // 
             // pluginName
             // 
             this.pluginName.HeaderText = "Plugin Name";
@@ -180,6 +149,38 @@
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
+            // 
+            // btnRunAll
+            // 
+            this.btnRunAll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRunAll.Location = new System.Drawing.Point(23, 371);
+            this.btnRunAll.Name = "btnRunAll";
+            this.btnRunAll.Size = new System.Drawing.Size(350, 30);
+            this.btnRunAll.TabIndex = 1;
+            this.btnRunAll.Text = "Run All Plugins";
+            this.btnRunAll.UseSelectable = true;
+            this.btnRunAll.Click += new System.EventHandler(this.btnRunAll_Click);
+            // 
+            // pluginProgress
+            // 
+            this.pluginProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pluginProgress.Location = new System.Drawing.Point(23, 407);
+            this.pluginProgress.Name = "pluginProgress";
+            this.pluginProgress.Size = new System.Drawing.Size(436, 23);
+            this.pluginProgress.TabIndex = 2;
+            // 
+            // btnLog
+            // 
+            this.btnLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLog.Location = new System.Drawing.Point(379, 371);
+            this.btnLog.Name = "btnLog";
+            this.btnLog.Size = new System.Drawing.Size(80, 30);
+            this.btnLog.TabIndex = 3;
+            this.btnLog.Text = "Log";
+            this.btnLog.UseSelectable = true;
+            this.btnLog.Click += new System.EventHandler(this.btnLog_Click);
             // 
             // MainWindow
             // 
