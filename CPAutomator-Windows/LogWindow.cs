@@ -24,8 +24,8 @@ namespace CPAutomator_Windows
         /// <param name="text"></param>
         public void addLine(string text)
         {
-            this.logTextBox.Text += text.Replace(System.Environment.NewLine, "")
-                + "\r\n";
+            addText(text.Replace(System.Environment.NewLine, "")
+                + "\r\n");
         }
 
         /// <summary>
@@ -35,6 +35,9 @@ namespace CPAutomator_Windows
         public void addText(string text)
         {
             this.logTextBox.Text += text;
+            this.logTextBox.SelectionStart =
+                this.logTextBox.TextLength;
+            this.logTextBox.ScrollToCaret();
         }
 
         private void logTextBox_TextChanged(object sender, EventArgs e)
