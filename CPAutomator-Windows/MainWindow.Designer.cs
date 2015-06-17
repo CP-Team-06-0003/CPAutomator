@@ -203,7 +203,7 @@
 
         public MetroFramework.Controls.MetroGrid pluginGridView;
         public MetroFramework.Controls.MetroButton btnRunAll;
-        private MetroFramework.Controls.MetroProgressBar pluginProgress;
+        public MetroFramework.Controls.MetroProgressBar pluginProgress;
         private MetroFramework.Controls.MetroButton btnLog;
         private System.Windows.Forms.DataGridViewTextBoxColumn pluginName;
         private System.Windows.Forms.DataGridViewButtonColumn RunPlugin;
