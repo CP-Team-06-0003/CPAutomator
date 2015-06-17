@@ -19,6 +19,8 @@ namespace CPAutomator_Windows
         private ICollection<Assembly> assemblies = new List<Assembly>();
         private LogWindow logWindow = new LogWindow();
         private cpPlugins plug_struct;
+        private int rowIndexFromMouseDown;
+        private DataGridViewRow rw;
 
         /// <summary>
         /// Holds a collection of plugins and revertable plugins
@@ -168,7 +170,7 @@ namespace CPAutomator_Windows
             logWindow.Show();
         }
 
-        private void pluginGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void pluginGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == pluginGridView.Columns["RunPlugin"].Index && e.RowIndex >= 0)
             {
@@ -176,6 +178,43 @@ namespace CPAutomator_Windows
                 ICollection<CPPluginInterface> x = new List<CPPluginInterface>();
                 x.Add(getPluginInstanceByName("testplugin"));
                 RunPlugins(x);
+            }
+            // TODO
+        }
+
+        private void pluginGridView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (pluginGridView.SelectedRows.Count == 1)
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    rw = pluginGridView.SelectedRows[0];
+                    rowIndexFromMouseDown = pluginGridView.SelectedRows[0].Index;
+                    pluginGridView.DoDragDrop(rw, DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void pluginGridView_DragEnter(object sender, DragEventArgs e)
+        {
+            if (pluginGridView.SelectedRows.Count > 0)
+            {
+                e.Effect = DragDropEffects.Move;
+            }
+        }
+
+        private void pluginGridView_DragDrop(object sender, DragEventArgs e)
+        {
+
+            int rowIndexOfItemUnderMouseToDrop;
+            Point clientPoint = pluginGridView.PointToClient(new Point(e.X, e.Y));
+            rowIndexOfItemUnderMouseToDrop =
+                pluginGridView.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+            if (e.Effect == DragDropEffects.Move &&
+                rowIndexOfItemUnderMouseToDrop >= 0)
+            {
+                pluginGridView.Rows.RemoveAt(rowIndexFromMouseDown);
+                pluginGridView.Rows.Insert(rowIndexOfItemUnderMouseToDrop, rw);
             }
         }
 

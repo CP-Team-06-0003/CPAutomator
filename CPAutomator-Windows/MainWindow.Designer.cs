@@ -46,7 +46,9 @@
             // 
             // pluginGridView
             // 
+            this.pluginGridView.AllowDrop = true;
             this.pluginGridView.AllowUserToAddRows = false;
+            this.pluginGridView.AllowUserToDeleteRows = false;
             this.pluginGridView.AllowUserToResizeRows = false;
             this.pluginGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -83,6 +85,7 @@
             this.pluginGridView.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
             this.pluginGridView.GridColor = System.Drawing.SystemColors.Control;
             this.pluginGridView.Location = new System.Drawing.Point(23, 63);
+            this.pluginGridView.MultiSelect = false;
             this.pluginGridView.Name = "pluginGridView";
             this.pluginGridView.ReadOnly = true;
             this.pluginGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -99,7 +102,10 @@
             this.pluginGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.pluginGridView.Size = new System.Drawing.Size(436, 302);
             this.pluginGridView.TabIndex = 0;
-            this.pluginGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pluginGridView_CellContentClick);
+            this.pluginGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.pluginGridView_CellClick);
+            this.pluginGridView.DragDrop += new System.Windows.Forms.DragEventHandler(this.pluginGridView_DragDrop);
+            this.pluginGridView.DragEnter += new System.Windows.Forms.DragEventHandler(this.pluginGridView_DragEnter);
+            this.pluginGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pluginGridView_MouseClick);
             // 
             // pluginName
             // 
