@@ -10,7 +10,8 @@ namespace CPPlugin
     public enum OS_TYPE
     {
         OS_WINDOWS,
-        OS_LINUX
+        OS_LINUX,
+        OS_GENERIC
     }
 
     /* Queue of native shell commands */

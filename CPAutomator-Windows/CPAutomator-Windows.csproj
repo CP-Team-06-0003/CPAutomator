@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CPAPI.cs" />
+    <Compile Include="CPLinuxAPI.cs" />
     <Compile Include="CPPluginInterface.cs" />
     <Compile Include="CPUniveralAPI.cs" />
     <Compile Include="CPUniversalForm.cs">

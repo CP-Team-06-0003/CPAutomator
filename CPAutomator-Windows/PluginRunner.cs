@@ -34,11 +34,10 @@ namespace CPAutomator_Windows
             foreach (var plugin in plugins)
             {
                 // Make a new API instance for each plugin
-                CPWindowsAPI api = new CPWindowsAPI(win_handle, plugin.Name);
-                CPAPI.setAPI(api);
+                CPAPI.setAPI(CPAPI.createApiInstance(
+                    win_handle.getOperatingSystem(), win_handle, plugin.Name));
                 win_handle.Log(name, "Running plugin " + plugin.Name);
                 plugin.Run();
-                api = null;
                 win_handle.pluginProgress.PerformStep(); // Update progress
             }
             win_handle.Log(name, "Done!");
@@ -57,11 +56,10 @@ namespace CPAutomator_Windows
             win_handle.pluginProgress.Maximum = 1;
             win_handle.pluginProgress.Step = 1;
             win_handle.pluginProgress.Value = 0;
-            CPWindowsAPI api = new CPWindowsAPI(win_handle, rp.Name);
-            CPAPI.setAPI(api);
+            CPAPI.setAPI(CPAPI.createApiInstance(
+                win_handle.getOperatingSystem(), win_handle, rp.Name));
             win_handle.Log(name, "Reverting plugin " + rp.Name);
             rp.Revert();
-            api = null;
             win_handle.pluginProgress.PerformStep(); // Update progress
             win_handle.Log(name, "Done!");
             win_handle.pluginGridView.Enabled = true;

@@ -20,5 +20,20 @@ namespace CPPlugin
         {
             return API;
         }
+
+        public static CPUniversalInterface createApiInstance(OS_TYPE t,
+            CPAutomator_Windows.MainWindow w, string name)
+        {
+            switch (t)
+            {
+                case OS_TYPE.OS_WINDOWS:
+                    return new CPWindowsAPI(w, name);
+                case OS_TYPE.OS_LINUX:
+                    return new CPLinuxAPI(w, name);
+                case OS_TYPE.OS_GENERIC:
+                default:
+                    return new CPUniversalAPI(w, name);
+            }
+        }
     }
 }

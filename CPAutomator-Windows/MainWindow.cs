@@ -40,6 +40,29 @@ namespace CPAutomator_Windows
         }
 
         /// <summary>
+        /// Gets the OS type running the Automator
+        /// </summary>
+        /// <returns></returns>
+        public OS_TYPE getOperatingSystem()
+        {
+            OperatingSystem os = Environment.OSVersion;
+            PlatformID pid = os.Platform;
+            switch (pid)
+            {
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    return OS_TYPE.OS_WINDOWS;
+                case PlatformID.Unix:
+                    return OS_TYPE.OS_LINUX;
+                default:
+                    Log("Unsupported operating system detected!");
+                    return OS_TYPE.OS_GENERIC;
+            }
+        }
+
+        /// <summary>
         /// Constructs the MainWindow object
         /// </summary>
         /// <param name="plugins"></param>
@@ -60,16 +83,22 @@ namespace CPAutomator_Windows
             enumeratePlugins(plug_struct);
             foreach (var item in plug_struct.plugins)
             {
-                CPWindowsAPI api = new CPWindowsAPI(this, item.Name);
-                CPAPI.setAPI(api);
+                if (item.SupportedOS != this.getOperatingSystem()
+                    && item.SupportedOS != OS_TYPE.OS_GENERIC)
+                    continue;
+                CPAPI.setAPI(CPAPI.createApiInstance(
+                    this.getOperatingSystem(), this, item.Name));
                 this.pluginGridView.Rows.Add(item.PrettyName,
                     "Run", "Settings", "Unload", "0", item.Name);
                 item.onPluginLoad();
             }
             foreach (var item in plug_struct.rev_plugins)
             {
-                CPWindowsAPI api = new CPWindowsAPI(this, item.Name);
-                CPAPI.setAPI(api);
+                if (item.SupportedOS != this.getOperatingSystem()
+                    && item.SupportedOS != OS_TYPE.OS_GENERIC)
+                    continue;
+                CPAPI.setAPI(CPAPI.createApiInstance(
+                    this.getOperatingSystem(), this, item.Name));
                 this.pluginGridView.Rows.Add(item.PrettyName + " (Rev)");
                 item.onPluginLoad();
             }
